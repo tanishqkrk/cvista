@@ -1,20 +1,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Element } from "~/interfaces/ELementInterface";
 
-const ElementContext = createContext<{
-  selectedElement: Element | null;
-  setSelectedElement: React.Dispatch<React.SetStateAction<Element | null>>;
-} | null>(null);
+const ElementContext = createContext(null);
 
 function ElementProvider({ children }: { children: React.ReactNode }) {
-  const [selectedElement, setSelectedElement] = useState<Element | null>();
+  const [selectedElement, setSelectedElement] = useState<string>("");
+  const [list, setList] = useState<Element[]>([]);
 
-  // useEffect(() => {
-  //   console.log(selectedElement);
-  // }, [selectedElement]);
+  useEffect(() => {
+    console.table(list);
+  }, [list]);
 
   return (
-    <ElementContext.Provider value={{ selectedElement, setSelectedElement }}>
+    <ElementContext.Provider
+      value={{ selectedElement, setSelectedElement, list, setList }}
+    >
       {children}
     </ElementContext.Provider>
   );

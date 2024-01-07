@@ -1,7 +1,7 @@
 "use client";
 import { useElement } from "~/context/ElementContext";
 export default function Elements() {
-  const { selectedElement, setSelectedElement } = useElement();
+  const { selectedElement, setSelectedElement, list, setList } = useElement();
 
   interface NewElement {
     title: string;
@@ -55,13 +55,47 @@ export default function Elements() {
           return (
             <button
               onClick={() => {
-                setSelectedElement({
-                  id: "0",
-                  order: 1,
+                const newElement = {
+                  id: crypto.randomUUID(),
+                  order: Date.now(),
                   type: item.type,
+                  heading: item.type === "heading" ? "Heading" : "",
+                  text: "",
+                  img:
+                    item.type === "img"
+                      ? {
+                          url: "",
+                          width: 100,
+                          height: 100,
+                        }
+                      : {},
+                  table:
+                    item.type === "table"
+                      ? {
+                          width: [],
+                          height: [],
+                          body: [[{ text: "", id: crypto.randomUUID() }]],
+                        }
+                      : {},
+                  uList:
+                    item.type === "ulist"
+                      ? {
+                          items: [],
+                        }
+                      : {},
+                  oList:
+                    item.type === "olist"
+                      ? {
+                          items: [],
+                        }
+                      : {},
+                };
+                setList((org: Element[]) => {
+                  return [...org, newElement];
                 });
+                setSelectedElement(newElement.id);
               }}
-              className="border-blue pz-3 bg-blue  flex w-full flex-col items-center gap-3 rounded-lg border-2 p-2 "
+              className="pz-3 flex w-full  flex-col items-center gap-3 rounded-lg border-2 border-blue bg-blue p-2 "
             >
               <div>
                 <img className="w-6" src={`/${item.icon}`} alt="" />

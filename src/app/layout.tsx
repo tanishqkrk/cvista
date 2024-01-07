@@ -2,10 +2,6 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import Navbar from "~/components/Navbar";
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
 
 export const metadata = {
   title: "Cvista",
@@ -20,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html className="bg-black" lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body>
         <Navbar />
         <div className="flex -translate-y-24 justify-center">{children}</div>
       </body>
